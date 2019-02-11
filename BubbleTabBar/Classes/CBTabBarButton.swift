@@ -9,7 +9,7 @@
 import UIKit
 
 public class CBTabBarItem: UITabBarItem {
-    @IBInspectable var tintColor: UIColor?
+    @IBInspectable public var tintColor: UIColor?
 }
 
 public class CBTabBarButton: UIControl {
