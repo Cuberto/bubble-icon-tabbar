@@ -31,7 +31,7 @@ If this is your first time using Carthage in the project, you'll need to go thro
 
 ### Manual
 
-Add CBFlashyTabBarController folder to your project
+Add content of folder `BubbleTabBar/Classes` to your project
 
 ## Usage
 
