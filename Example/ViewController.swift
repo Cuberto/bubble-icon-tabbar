@@ -32,6 +32,10 @@ class ViewController: UIViewController {
         tabBarController.viewControllers = [eventsVC, searchVC, activityVC, settingsVC]
         tabBarController.tabBar.tintColor = #colorLiteral(red: 0.1579992771, green: 0.1818160117, blue: 0.5072338581, alpha: 1)
         self.navigationController?.pushViewController(tabBarController, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            tabBarController.selectedIndex = 2
+        }
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {

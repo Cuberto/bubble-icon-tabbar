@@ -9,7 +9,7 @@
 import UIKit
 
 open class BubbleTabBar: UITabBar {
-
+    
     private var buttons: [CBTabBarButton] = []
     public var animationDuration: Double = 0.3
     
@@ -26,7 +26,7 @@ open class BubbleTabBar: UITabBar {
             select(itemAt: index, animated: false)
         }
     }
-
+        
     open override var tintColor: UIColor! {
         didSet {
             buttons.forEach { button in
@@ -36,12 +36,12 @@ open class BubbleTabBar: UITabBar {
             }
         }
     }
-
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
-
+    
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configure()
@@ -81,24 +81,24 @@ open class BubbleTabBar: UITabBar {
             csContainerBottom.constant = -safeAreaInsets.bottom
         } else { }
     }
-
+    
     open override var items: [UITabBarItem]? {
         didSet {
             reloadViews()
         }
     }
-
+    
     open override func setItems(_ items: [UITabBarItem]?, animated: Bool) {
         super.setItems(items, animated: animated)
         reloadViews()
     }
     
-    private var spacers: [UIView] = []
+    private var spaceLayoutGuides:[UILayoutGuide] = []
     
     private func reloadViews() {
         subviews.filter { String(describing: type(of: $0)) == "UITabBarButton" }.forEach { $0.removeFromSuperview() }
-        buttons.forEach { $0.removeFromSuperview()}
-        spacers.forEach { $0.removeFromSuperview()}
+        buttons.forEach { $0.removeFromSuperview() }
+        spaceLayoutGuides.forEach { self.container.removeLayoutGuide($0) }
         buttons = items?.map { self.button(forItem: $0) } ?? []
         buttons.forEach { (button) in
             self.container.addSubview(button)
@@ -108,22 +108,18 @@ open class BubbleTabBar: UITabBar {
         buttons.first?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10.0).isActive = true
         buttons.last?.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10.0).isActive = true
         let viewCount = buttons.count - 1
-        spacers = []
+        spaceLayoutGuides = [];
         for i in 0..<viewCount {
-            let spacer = UIView()
-            spacer.translatesAutoresizingMaskIntoConstraints = false
-            container.addSubview(spacer)
-            spacer.isHidden = true
-            spacer.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
-            spacer.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
+            let layoutGuide = UILayoutGuide()
+            container.addLayoutGuide(layoutGuide)
+            spaceLayoutGuides.append(layoutGuide)
             let prevBtn = buttons[i]
             let nextBtn = buttons[i + 1]
-            spacer.leadingAnchor.constraint(equalTo: prevBtn.trailingAnchor).isActive = true
-            spacer.trailingAnchor.constraint(equalTo: nextBtn.leadingAnchor).isActive = true
-            spacers.append(spacer)
+            layoutGuide.leadingAnchor.constraint(equalTo: prevBtn.trailingAnchor).isActive = true
+            layoutGuide.trailingAnchor.constraint(equalTo: nextBtn.leadingAnchor).isActive = true
         }
-        for spacer in spacers[1...] {
-            spacer.widthAnchor.constraint(equalTo: spacers[0].widthAnchor, multiplier: 1.0).isActive = true
+        for layoutGuide in spaceLayoutGuides[1...] {
+            layoutGuide.widthAnchor.constraint(equalTo: spaceLayoutGuides[0].widthAnchor, multiplier: 1.0).isActive = true;
         }
         layoutIfNeeded()
     }
@@ -141,12 +137,12 @@ open class BubbleTabBar: UITabBar {
         }
         return button
     }
-
+    
     @objc private func btnPressed(sender: CBTabBarButton) {
         guard let index = buttons.index(of: sender),
-              index != NSNotFound,
-              let item = items?[index] else {
-            return
+            index != NSNotFound,
+            let item = items?[index] else {
+                return
         }
         buttons.forEach { (button) in
             guard button != sender else {
@@ -160,7 +156,7 @@ open class BubbleTabBar: UITabBar {
         }
         delegate?.tabBar?(self, didSelect: item)
     }
-
+    
     func select(itemAt index: Int, animated: Bool = false) {
         guard index < buttons.count else {
             return
@@ -181,5 +177,5 @@ open class BubbleTabBar: UITabBar {
             self.container.layoutIfNeeded()
         }
     }
-
+    
 }
