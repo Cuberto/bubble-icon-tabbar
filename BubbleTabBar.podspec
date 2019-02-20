@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'BubbleTabBar'
   s.swift_version = '4.2'
-  s.version          = '0.8.1'
+  s.version          = '0.8.2'
   s.summary          = 'One another nice animated tabbar'
   s.homepage         = 'https://github.com/Cuberto/bubble-icon-tabbar'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'

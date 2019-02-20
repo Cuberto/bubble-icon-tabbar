@@ -13,14 +13,8 @@ open class BubbleTabBar: UITabBar {
     private var buttons: [CBTabBarButton] = []
     public var animationDuration: Double = 0.3
     
-    fileprivate var shouldSelectOnTabBar = true
     open override var selectedItem: UITabBarItem? {
         willSet {
-            guard shouldSelectOnTabBar else {
-                shouldSelectOnTabBar = true
-                return
-
-            }
             guard let newValue = newValue else {
                 buttons.forEach { $0.setSelected(false) }
                 return
@@ -29,9 +23,7 @@ open class BubbleTabBar: UITabBar {
                 index != NSNotFound else {
                     return
             }
-
             select(itemAt: index, animated: false)
-
         }
     }
 
@@ -181,10 +173,6 @@ open class BubbleTabBar: UITabBar {
             button.setSelected(false, animationDuration: animated ? animationDuration : 0)
         }
         selectedbutton.setSelected(true, animationDuration: animated ? animationDuration : 0)
-        if let item = items?[index] {
-            shouldSelectOnTabBar = false
-            selectedItem = item
-        }
         if animated {
             UIView.animate(withDuration: animationDuration) {
                 self.container.layoutIfNeeded()
