@@ -28,9 +28,9 @@ class ViewController: UIViewController {
         settingsVC.inverseColor()
 
         let tabBarController = BubbleTabBarController()
-
         tabBarController.viewControllers = [eventsVC, searchVC, activityVC, settingsVC]
         tabBarController.tabBar.tintColor = #colorLiteral(red: 0.1579992771, green: 0.1818160117, blue: 0.5072338581, alpha: 1)
+        tabBarController.tabBar.backgroundColor = .gray
         self.navigationController?.pushViewController(tabBarController, animated: true)
     }
 

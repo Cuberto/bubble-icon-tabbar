@@ -37,6 +37,12 @@ open class BubbleTabBar: UITabBar {
         }
     }
     
+    override open var backgroundColor: UIColor? {
+        didSet {
+            barTintColor = backgroundColor
+        }
+    }
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
