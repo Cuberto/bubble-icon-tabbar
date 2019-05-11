@@ -36,18 +36,7 @@ open class BubbleTabBar: UITabBar {
             }
         }
     }
-    
-    @IBInspectable
-    var rightToLeft:Bool = false{
-        didSet {
-            buttons.forEach { button in
-                if button.item as? CBTabBarItem != nil {
-                    button.rightToLeft = rightToLeft
-                }
-            }
-        }
-    }
-    
+        
     public override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
