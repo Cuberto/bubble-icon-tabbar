@@ -10,10 +10,12 @@ import UIKit
 
 public class CBTabBarItem: UITabBarItem {
     @IBInspectable public var tintColor: UIColor?
+    @IBInspectable public var rightToLeft:Bool = false
 }
 
 public class CBTabBarButton: UIControl {
 
+    var rightToLeft:Bool = false
     private var _isSelected: Bool = false
     override public var isSelected: Bool {
         get {
@@ -54,9 +56,11 @@ public class CBTabBarButton: UIControl {
         didSet {
             tabImage.image = item?.image?.withRenderingMode(.alwaysTemplate)
             tabLabel.text = item?.title
-            if let tabItem = item as? CBTabBarItem,
-               let color = tabItem.tintColor {
-               tintColor = color
+            if let tabItem = item as? CBTabBarItem{
+                if let color = tabItem.tintColor {
+                    tintColor = color
+                }
+             self.rightToLeft = tabItem.rightToLeft
             }
         }
     }
@@ -111,14 +115,23 @@ public class CBTabBarButton: UIControl {
         tabBg.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         tabBg.heightAnchor.constraint(equalToConstant: bgHeight).isActive = true
         
-        
-        tabImage.leadingAnchor.constraint(equalTo: tabBg.leadingAnchor, constant: bgHeight/2.0).isActive = true
-        tabImage.centerYAnchor.constraint(equalTo: tabBg.centerYAnchor).isActive = true
-        tabLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        csFoldedLblLeading = tabLabel.leadingAnchor.constraint(equalTo: leadingAnchor)
-        csUnfoldedLblLeading = tabLabel.leadingAnchor.constraint(equalTo: tabImage.trailingAnchor, constant: bgHeight/4.0)
-        csFoldedBgTrailing = tabImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -bgHeight/2.0)
-        csUnfoldedBgTrailing = tabLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -bgHeight/2.0)
+        if rightToLeft{
+            tabImage.trailingAnchor.constraint(equalTo: tabBg.trailingAnchor, constant: -bgHeight/2.0).isActive = true
+            tabImage.centerYAnchor.constraint(equalTo: tabBg.centerYAnchor).isActive = true
+            tabLabel.centerYAnchor.constraint(equalTo: tabBg.centerYAnchor).isActive = true
+            csFoldedLblLeading = tabLabel.leadingAnchor.constraint(equalTo: tabBg.trailingAnchor)
+            csUnfoldedLblLeading = tabLabel.leadingAnchor.constraint(equalTo: tabBg.leadingAnchor, constant: bgHeight/4.0)
+            csFoldedBgTrailing = tabImage.trailingAnchor.constraint(equalTo: tabBg.leadingAnchor, constant: bgHeight/2.0)
+            csUnfoldedBgTrailing = tabLabel.trailingAnchor.constraint(equalTo: tabImage.leadingAnchor, constant: -bgHeight/2.0)
+        }else{
+            tabImage.leadingAnchor.constraint(equalTo: tabBg.leadingAnchor, constant: bgHeight/2.0).isActive = true
+            tabImage.centerYAnchor.constraint(equalTo: tabBg.centerYAnchor).isActive = true
+            tabLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            csFoldedLblLeading = tabLabel.leadingAnchor.constraint(equalTo: leadingAnchor)
+            csUnfoldedLblLeading = tabLabel.leadingAnchor.constraint(equalTo: tabImage.trailingAnchor, constant: bgHeight/4.0)
+            csFoldedBgTrailing = tabImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -bgHeight/2.0)
+            csUnfoldedBgTrailing = tabLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -bgHeight/2.0)
+        }
         fold()
         setNeedsLayout()
     }

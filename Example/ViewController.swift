@@ -24,7 +24,9 @@ class ViewController: UIViewController {
         let activityVC = CBSampleViewController()
         activityVC.tabBarItem = UITabBarItem(title: "Activity", image: #imageLiteral(resourceName: "folder"), tag: 0)
         let settingsVC = CBSampleViewController()
-        settingsVC.tabBarItem = UITabBarItem(title: "Settings", image: #imageLiteral(resourceName: "menu"), tag: 0)
+        let settingsTabbarItem = CBTabBarItem(title: "Right to Left", image: #imageLiteral(resourceName: "menu"), tag: 0)
+        settingsTabbarItem.rightToLeft = true
+        settingsVC.tabBarItem = settingsTabbarItem
         settingsVC.inverseColor()
 
         let tabBarController = BubbleTabBarController()
