@@ -95,6 +95,7 @@ public class CBTabBarButton: UIControl {
         tabImage.translatesAutoresizingMaskIntoConstraints = false
         tabLabel.translatesAutoresizingMaskIntoConstraints = false
         tabLabel.font = UIFont.systemFont(ofSize: 14)
+        tabLabel.adjustsFontSizeToFitWidth = true
         tabBg.translatesAutoresizingMaskIntoConstraints = false
         tabBg.isUserInteractionEnabled = false
         tabImage.setContentHuggingPriority(.required, for: .horizontal)
