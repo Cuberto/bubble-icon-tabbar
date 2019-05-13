@@ -221,7 +221,7 @@
             </objects>
             <point key="canvasLocation" x="790" y="123"/>
         </scene>
-        <!--راست چین-->
+        <!--Menu-->
         <scene sceneID="srN-N5-FYi">
             <objects>
                 <viewController id="eli-5Z-mNT" customClass="SettingsViewController" customModule="ExampleApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -233,8 +233,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Right To Left" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjS-sG-BtE">
-                                <rect key="frame" x="29.5" y="300.5" width="316" height="66"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjS-sG-BtE">
+                                <rect key="frame" x="116" y="300.5" width="143" height="66"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="55"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -246,12 +246,11 @@
                             <constraint firstItem="gjS-sG-BtE" firstAttribute="centerY" secondItem="Ps0-23-JHh" secondAttribute="centerY" id="dcn-h3-l0S"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="راست چین" image="menu" id="Q6f-Bv-lvU" customClass="CBTabBarItem" customModule="BubbleTabBar">
+                    <tabBarItem key="tabBarItem" title="Menu" image="menu" id="Q6f-Bv-lvU" customClass="CBTabBarItem" customModule="BubbleTabBar">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
                                 <color key="value" red="0.25882352939999997" green="0.56470588239999997" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="rightToLeft" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </tabBarItem>
                 </viewController>

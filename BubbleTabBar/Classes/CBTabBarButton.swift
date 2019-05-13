@@ -56,11 +56,11 @@ public class CBTabBarButton: UIControl {
         didSet {
             tabImage.image = item?.image?.withRenderingMode(.alwaysTemplate)
             tabLabel.text = item?.title
-            if let tabItem = item as? CBTabBarItem{
+            if let tabItem = item as? CBTabBarItem {
                 if let color = tabItem.tintColor {
                     tintColor = color
                 }
-             self.rightToLeft = tabItem.rightToLeft
+                rightToLeft = tabItem.rightToLeft
             }
         }
     }
@@ -115,7 +115,7 @@ public class CBTabBarButton: UIControl {
         tabBg.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         tabBg.heightAnchor.constraint(equalToConstant: bgHeight).isActive = true
         
-        if rightToLeft{
+        if rightToLeft {
             tabImage.trailingAnchor.constraint(equalTo: tabBg.trailingAnchor, constant: -bgHeight/2.0).isActive = true
             tabImage.centerYAnchor.constraint(equalTo: tabBg.centerYAnchor).isActive = true
             tabLabel.centerYAnchor.constraint(equalTo: tabBg.centerYAnchor).isActive = true
@@ -123,7 +123,7 @@ public class CBTabBarButton: UIControl {
             csUnfoldedLblLeading = tabLabel.leadingAnchor.constraint(equalTo: tabBg.leadingAnchor, constant: bgHeight/4.0)
             csFoldedBgTrailing = tabImage.trailingAnchor.constraint(equalTo: tabBg.leadingAnchor, constant: bgHeight/2.0)
             csUnfoldedBgTrailing = tabLabel.trailingAnchor.constraint(equalTo: tabImage.leadingAnchor, constant: -bgHeight/2.0)
-        }else{
+        } else {
             tabImage.leadingAnchor.constraint(equalTo: tabBg.leadingAnchor, constant: bgHeight/2.0).isActive = true
             tabImage.centerYAnchor.constraint(equalTo: tabBg.centerYAnchor).isActive = true
             tabLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
