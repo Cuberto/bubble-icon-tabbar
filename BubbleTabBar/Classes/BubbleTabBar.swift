@@ -37,6 +37,12 @@ open class BubbleTabBar: UITabBar {
         }
     }
     
+    override open var backgroundColor: UIColor? {
+        didSet {
+            barTintColor = backgroundColor
+        }
+    }
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -105,8 +111,13 @@ open class BubbleTabBar: UITabBar {
             button.topAnchor.constraint(equalTo: self.container.topAnchor).isActive = true
             button.bottomAnchor.constraint(equalTo: self.container.bottomAnchor).isActive = true
         }
-        buttons.first?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10.0).isActive = true
-        buttons.last?.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10.0).isActive = true
+        if #available(iOS 11.0, *) {
+            buttons.first?.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10.0).isActive = true
+            buttons.last?.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10.0).isActive = true
+        } else {
+            buttons.first?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10.0).isActive = true
+            buttons.last?.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10.0).isActive = true
+        }
         let viewCount = buttons.count - 1
         spaceLayoutGuides = [];
         for i in 0..<viewCount {

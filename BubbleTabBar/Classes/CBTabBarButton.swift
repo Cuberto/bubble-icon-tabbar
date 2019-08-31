@@ -25,11 +25,7 @@ public class CBTabBarButton: UIControl {
             guard newValue != _isSelected else {
                 return
             }
-            if newValue {
-                unfold()
-            } else {
-                fold()
-            }
+            setSelected(newValue)
         }
     }
     
@@ -51,10 +47,18 @@ public class CBTabBarButton: UIControl {
             configureSubviews()
         }
     }
+
+    private var currentImage: UIImage? {
+        if _isSelected {
+                return item?.selectedImage ?? item?.image
+            } else {
+                return item?.image
+            }
+    }
     
     public var item: UITabBarItem? {
         didSet {
-            tabImage.image = item?.image?.withRenderingMode(.alwaysTemplate)
+            tabImage.image = currentImage?.withRenderingMode(.alwaysTemplate)
             tabLabel.text = item?.title
             if let tabItem = item as? CBTabBarItem {
                 if let color = tabItem.tintColor {
@@ -99,6 +103,7 @@ public class CBTabBarButton: UIControl {
         tabImage.translatesAutoresizingMaskIntoConstraints = false
         tabLabel.translatesAutoresizingMaskIntoConstraints = false
         tabLabel.font = UIFont.systemFont(ofSize: 14)
+        tabLabel.adjustsFontSizeToFitWidth = true
         tabBg.translatesAutoresizingMaskIntoConstraints = false
         tabBg.isUserInteractionEnabled = false
         tabImage.setContentHuggingPriority(.required, for: .horizontal)
@@ -167,6 +172,9 @@ public class CBTabBarButton: UIControl {
     
     public func setSelected(_ selected: Bool, animationDuration duration: Double = 0.0) {
         _isSelected = selected
+         UIView.transition(with: tabImage, duration: 0.05, options: [.beginFromCurrentState], animations: {
+            self.tabImage.image = self.currentImage
+        }, completion: nil)
         if selected {
             unfold(animationDuration: duration)
         } else {

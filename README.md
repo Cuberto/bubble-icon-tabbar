@@ -51,6 +51,10 @@ Add content of folder `BubbleTabBar/Classes` to your project
 3. Add some child conrollers and don't forget to set them tabBar items with title and image
 4. If you need cutom color for each tab use `CBTabBarItem` instead of UITabBarItem set `tintColor` property  
 
+## Android
+
+Similar library [BubbleTabBar](https://github.com/akshay2211/BubbleTabBar) by [Akshay Sharma](https://github.com/akshay2211)
+
 ## Author
 
 Cuberto Design, info@cuberto.com

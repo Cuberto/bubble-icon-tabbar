@@ -24,13 +24,11 @@ class ViewController: UIViewController {
         let activityVC = CBSampleViewController()
         activityVC.tabBarItem = UITabBarItem(title: "Activity", image: #imageLiteral(resourceName: "folder"), tag: 0)
         let settingsVC = CBSampleViewController()
-        let settingsTabbarItem = CBTabBarItem(title: "Right to Left", image: #imageLiteral(resourceName: "menu"), tag: 0)
-        settingsTabbarItem.rightToLeft = true
-        settingsVC.tabBarItem = settingsTabbarItem
+        settingsVC.tabBarItem = UITabBarItem(title: "Settings", image: #imageLiteral(resourceName: "menu"), tag: 0)
+        settingsVC.tabBarItem.selectedImage = #imageLiteral(resourceName: "clock")
         settingsVC.inverseColor()
 
         let tabBarController = BubbleTabBarController()
-
         tabBarController.viewControllers = [eventsVC, searchVC, activityVC, settingsVC]
         tabBarController.tabBar.tintColor = #colorLiteral(red: 0.1579992771, green: 0.1818160117, blue: 0.5072338581, alpha: 1)
         self.navigationController?.pushViewController(tabBarController, animated: true)
