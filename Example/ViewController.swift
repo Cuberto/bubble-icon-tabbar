@@ -24,8 +24,11 @@ class ViewController: UIViewController {
         let activityVC = CBSampleViewController()
         activityVC.tabBarItem = UITabBarItem(title: "Activity", image: #imageLiteral(resourceName: "folder"), tag: 0)
         let settingsVC = CBSampleViewController()
-        settingsVC.tabBarItem = UITabBarItem(title: "Settings", image: #imageLiteral(resourceName: "menu"), tag: 0)
-        settingsVC.tabBarItem.selectedImage = #imageLiteral(resourceName: "clock")
+        settingsVC.tabBarItem = UITabBarItem(title: "Settings",
+                                             image: #imageLiteral(resourceName: "customer_addJob").withRenderingMode(.alwaysOriginal),
+                                             selectedImage: #imageLiteral(resourceName: "btnFinishTutorial").withRenderingMode(.alwaysOriginal))
+//        UITabBarItem(title: "Settings", image: #imageLiteral(resourceName: "menu"), tag: 0)
+//        settingsVC.tabBarItem.selectedImage = #imageLiteral(resourceName: "clock")
         settingsVC.inverseColor()
 
         let tabBarController = BubbleTabBarController()
