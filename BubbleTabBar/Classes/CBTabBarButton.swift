@@ -28,17 +28,17 @@ public class CBTabBarButton: UIControl {
             setSelected(newValue)
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureSubviews()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configureSubviews()
     }
-    
+
     init(item: UITabBarItem) {
         super.init(frame: .zero)
         tabImage = UIImageView(image: item.image)
@@ -49,16 +49,21 @@ public class CBTabBarButton: UIControl {
     }
 
     private var currentImage: UIImage? {
+        var maybeImage: UIImage?
         if _isSelected {
-                return item?.selectedImage ?? item?.image
+                maybeImage = item?.selectedImage ?? item?.image
             } else {
-                return item?.image
+                maybeImage = item?.image
             }
+        guard let image = maybeImage else {
+            return nil
+        }
+        return image.renderingMode == .automatic ? image.withRenderingMode(.alwaysTemplate) : image
     }
-    
+
     public var item: UITabBarItem? {
         didSet {
-            tabImage.image = currentImage?.withRenderingMode(.alwaysTemplate)
+            tabImage.image = currentImage
             tabLabel.text = item?.title
             if let tabItem = item as? CBTabBarItem {
                 if let color = tabItem.tintColor {
@@ -68,7 +73,7 @@ public class CBTabBarButton: UIControl {
             }
         }
     }
-    
+
     override public var tintColor: UIColor! {
         didSet {
             if _isSelected {
@@ -82,22 +87,22 @@ public class CBTabBarButton: UIControl {
     private var tabImage = UIImageView()
     private var tabLabel = UILabel()
     private var tabBg = UIView()
-    
+
     private let bgHeight: CGFloat = 42.0
     private var csFoldedBgTrailing: NSLayoutConstraint!
     private var csUnfoldedBgTrailing: NSLayoutConstraint!
     private var csFoldedLblLeading: NSLayoutConstraint!
     private var csUnfoldedLblLeading: NSLayoutConstraint!
-    
+
     private var foldedConstraints: [NSLayoutConstraint] {
         return [csFoldedLblLeading, csFoldedBgTrailing]
     }
-    
+
     private var unfoldedConstraints: [NSLayoutConstraint] {
         return [csUnfoldedLblLeading, csUnfoldedBgTrailing]
     }
-    
-    
+
+
     private func configureSubviews() {
         tabImage.contentMode = .center
         tabImage.translatesAutoresizingMaskIntoConstraints = false
@@ -110,11 +115,11 @@ public class CBTabBarButton: UIControl {
         tabImage.setContentHuggingPriority(.required, for: .vertical)
         tabImage.setContentCompressionResistancePriority(.required, for: .horizontal)
         tabImage.setContentCompressionResistancePriority(.required, for: .vertical)
-        
+
         self.addSubview(tabBg)
         self.addSubview(tabLabel)
         self.addSubview(tabImage)
-        
+
         tabBg.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         tabBg.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         tabBg.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
@@ -137,10 +142,11 @@ public class CBTabBarButton: UIControl {
             csFoldedBgTrailing = tabImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -bgHeight/2.0)
             csUnfoldedBgTrailing = tabLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -bgHeight/2.0)
         }
+        
         fold()
         setNeedsLayout()
     }
-    
+
     private func fold(animationDuration duration: Double = 0.0) {
         unfoldedConstraints.forEach{ $0.isActive = false }
         foldedConstraints.forEach{ $0.isActive = true }
@@ -153,9 +159,9 @@ public class CBTabBarButton: UIControl {
         UIView.transition(with: tabImage, duration: duration, options: [.transitionCrossDissolve], animations: {
             self.tabImage.tintColor = .black
         }, completion: nil)
-        
+
     }
-    
+
     private func unfold(animationDuration duration: Double = 0.0) {
         foldedConstraints.forEach{ $0.isActive = false }
         unfoldedConstraints.forEach{ $0.isActive = true }
@@ -169,7 +175,7 @@ public class CBTabBarButton: UIControl {
             self.tabImage.tintColor = self.tintColor
         }, completion: nil)
     }
-    
+
     public func setSelected(_ selected: Bool, animationDuration duration: Double = 0.0) {
         _isSelected = selected
          UIView.transition(with: tabImage, duration: 0.05, options: [.beginFromCurrentState], animations: {
@@ -181,7 +187,7 @@ public class CBTabBarButton: UIControl {
             fold(animationDuration: duration)
         }
     }
-    
+
     override public func layoutSubviews() {
         super.layoutSubviews()
         tabBg.layer.cornerRadius = tabBg.bounds.height / 2.0
