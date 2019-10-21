@@ -47,6 +47,12 @@ public class CBTabBarButton: UIControl {
             configureSubviews()
         }
     }
+    private var currentBadge:String? {
+        return item?.badgeValue
+    }
+    private var currentFont:UIFont? {
+        return UIFont(name: "System", size: 11)
+    }
 
     private var currentImage: UIImage? {
         var maybeImage: UIImage?
@@ -87,6 +93,7 @@ public class CBTabBarButton: UIControl {
     private var tabImage = UIImageView()
     private var tabLabel = UILabel()
     private var tabBg = UIView()
+    private var tabBadge = TabBadge()
 
     private let bgHeight: CGFloat = 42.0
     private var csFoldedBgTrailing: NSLayoutConstraint!
@@ -107,7 +114,6 @@ public class CBTabBarButton: UIControl {
         tabImage.contentMode = .center
         tabImage.translatesAutoresizingMaskIntoConstraints = false
         tabLabel.translatesAutoresizingMaskIntoConstraints = false
-        tabLabel.font = UIFont.systemFont(ofSize: 14)
         tabLabel.adjustsFontSizeToFitWidth = true
         tabBg.translatesAutoresizingMaskIntoConstraints = false
         tabBg.isUserInteractionEnabled = false
@@ -115,15 +121,30 @@ public class CBTabBarButton: UIControl {
         tabImage.setContentHuggingPriority(.required, for: .vertical)
         tabImage.setContentCompressionResistancePriority(.required, for: .horizontal)
         tabImage.setContentCompressionResistancePriority(.required, for: .vertical)
-
+        
+        tabBadge.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        tabBadge.layer.cornerRadius = 10
+        tabBadge.clipsToBounds = true
+        tabBadge.clipsToBounds = true
+        tabBadge.textColor = .white
+        tabBadge.textAlignment = .center
+        tabBadge.font = currentFont
+        tabBadge.text = currentBadge
+        tabBadge.backgroundColor = tintColor
+        
         self.addSubview(tabBg)
         self.addSubview(tabLabel)
         self.addSubview(tabImage)
-
+        if let _ = currentBadge{
+            self.addSubview(tabBadge)
+        }
+        
         tabBg.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         tabBg.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         tabBg.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         tabBg.heightAnchor.constraint(equalToConstant: bgHeight).isActive = true
+        
+        
         
         if rightToLeft {
             tabImage.trailingAnchor.constraint(equalTo: tabBg.trailingAnchor, constant: -bgHeight/2.0).isActive = true
@@ -193,3 +214,4 @@ public class CBTabBarButton: UIControl {
         tabBg.layer.cornerRadius = tabBg.bounds.height / 2.0
     }
 }
+class TabBadge: UILabel {}
