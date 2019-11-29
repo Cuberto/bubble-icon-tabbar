@@ -53,7 +53,7 @@ Add content of folder `BubbleTabBar/Classes` to your project
 
 ## Android
 
-Similar library [BubbleTabBar](https://github.com/akshay2211/BubbleTabBar) by [Akshay Sharma](https://github.com/akshay2211)
+Similar library [BubbleTabBar](https://github.com/Cuberto/bubble-icon-tabbar-android) by [Cuberto](https://github.com/Cuberto)
 
 ## Author
 
