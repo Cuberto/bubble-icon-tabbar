@@ -155,16 +155,6 @@ open class BubbleTabBar: UITabBar {
             let item = items?[index] else {
                 return
         }
-        buttons.forEach { (button) in
-            guard button != sender else {
-                return
-            }
-            button.setSelected(false, animationDuration: animationDuration)
-        }
-        sender.setSelected(true, animationDuration: animationDuration)
-        UIView.animate(withDuration: animationDuration) {
-            self.container.layoutIfNeeded()
-        }
         delegate?.tabBar?(self, didSelect: item)
     }
     
