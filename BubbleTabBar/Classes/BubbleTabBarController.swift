@@ -89,6 +89,13 @@ open class BubbleTabBarController: UITabBarController {
             return
         }
         if let controller = viewControllers?[idx] {
+            if let delegate = delegate, let should = delegate.tabBarController?(self, shouldSelect: controller), !should {
+                return
+            }
+            guard let tabBar = tabBar as? BubbleTabBar else {
+                return
+            }
+            tabBar.select(itemAt: idx, animated: true)
             shouldSelectOnTabBar = false
             selectedIndex = idx
             delegate?.tabBarController?(self, didSelect: controller)
